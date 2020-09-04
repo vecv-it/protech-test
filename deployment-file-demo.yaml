@@ -19,7 +19,7 @@ spec:
       containers:
       - image: us.icr.io/protechprod/jenkins-demo:{{BUILD_NUMBER}}
         imagePullPolicy: IfNotPresent
-        name: protech-ui
+        name: demo-vecv-app
         ports:
         - containerPort: 8080
           name: tomcatport
