@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demo-vecv-app
+  name: demo-vecv-app
+  namespace: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-vecv-app
+  template:
+    metadata:
+      labels:
+        app: demo-vecv-app
+      name: demo-vecv-app
+    spec:
+      containers:
+      - image: us.icr.io/protechprod/jenkins-demo:{{BUILD_NUMBER}}
+        imagePullPolicy: IfNotPresent
+        name: protech-ui
+        ports:
+        - containerPort: 8080
+          name: tomcatport
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-vecv-app-svc
+  namespace: jenkins
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: demo-vecv-app
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-vecv-app-svc-np
+  namespace: jenkins
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+    nodePort: 31398
+  selector:
+    app: demo-vecv-app
+  type: NodePort
