@@ -10,6 +10,6 @@ public class Hello {
 	@RequestMapping("/")
 	public String demo()
 	{
-	return "This is a Rest Service";
+	return "This is a Rest Service -> VECV";
 	}
 }
